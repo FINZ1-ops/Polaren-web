@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class EquipmentImage extends Model
 {
-    //
+    protected $fillable = [
+        'equipment_id',
+        'path',
+        'is_primary',
+        'sort_order',
+    ];
+
+    public function equipment()
+    {
+        return $this->belongsTo(Equipment::class);
+    }
 }

@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     //
+    public function rentals()
+    {
+        return $this->belongsTo(Rental::class);
+    }
 }
