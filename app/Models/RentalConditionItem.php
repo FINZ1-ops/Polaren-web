@@ -11,10 +11,10 @@ class RentalConditionItem extends Model
         'item_name',
         'condition',
         'notes',
-    ];    
+    ];
 
-    public function rental_condition_reports()
+    public function conditionReport()
     {
-        return $this->hasMany(RentalConditionReport::class);
+        return $this->belongsTo(RentalConditionReport::class, 'condition_report_id');
     }
 }

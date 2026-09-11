@@ -15,30 +15,35 @@ class DamageClaim extends Model
         'approved_amount',
         'status',
     ];
-    
-    public function casts()
+
+    protected function casts(): array
     {
         return [
-            'resolved_at',
+            'resolved_at' => 'datetime',
         ];
     }
 
-    public function rentals()
+    public function rental()
     {
-        return $this->hasMany(Rental::class);
+        return $this->belongsTo(Rental::class);
     }
 
-    public function damage_claim_evidence()
+    public function createdBy()
     {
-        return $this->hasOne(DamageClaimEvidence::class);
+        return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function damage_claim_responses()
+    public function evidence()
     {
-        return $this->hasOne(DamageClaimResponse::class);
+        return $this->hasMany(DamageClaimEvidence::class);
     }
 
-    public function disputes()
+    public function responses()
+    {
+        return $this->hasMany(DamageClaimResponse::class);
+    }
+
+    public function dispute()
     {
         return $this->hasOne(Dispute::class);
     }

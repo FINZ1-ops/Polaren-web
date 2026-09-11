@@ -9,13 +9,14 @@ class Conversation extends Model
     protected $fillable = [
         'rental_id',
     ];
-    public function messages()
+
+    public function rental()
     {
-        return $this->hasOne(Message::class);
+        return $this->belongsTo(Rental::class);
     }
 
-    public function rentals()
+    public function messages()
     {
-        return $this->hasMany(Rental::class);
+        return $this->hasMany(Message::class);
     }
-}   
+}

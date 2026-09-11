@@ -4,24 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Message extends Model
 {
+    const UPDATED_AT = null;
+
     protected $fillable = [
         'conversation_id',
         'sender_id',
         'body',
     ];
 
-    public function casts()
+    protected function casts(): array
     {
         return [
-            'read_at',
+            'read_at' => 'datetime',
         ];
     }
 
-    public function users()
+    public function conversation()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Conversation::class);
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
     }
 }

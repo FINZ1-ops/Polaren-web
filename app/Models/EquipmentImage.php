@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EquipmentImage extends Model
 {
+    const UPDATED_AT = null;
+
     protected $fillable = [
         'equipment_id',
         'path',
@@ -15,6 +17,6 @@ class EquipmentImage extends Model
 
     public function equipment()
     {
-        return $this->hasMany(Equipment::class);
+        return $this->belongsTo(Equipment::class);
     }
 }

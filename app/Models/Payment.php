@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Override;
 
 class Payment extends Model
 {
@@ -13,19 +12,18 @@ class Payment extends Model
         'amount',
         'method',
         'status',
-        'proof_image'
+        'proof_image',
     ];
 
-    #[Override]
-    public function casts()
+    protected function casts(): array
     {
         return [
-            'paid_at',
+            'paid_at' => 'datetime',
         ];
     }
 
-    public function rentals()
+    public function rental()
     {
-        return $this->hasMany(Rental::class);
+        return $this->belongsTo(Rental::class);
     }
 }

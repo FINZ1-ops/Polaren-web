@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DamageClaimResponse extends Model
 {
+    const UPDATED_AT = null;
+
     protected $fillable = [
         'damage_claim_id',
         'user_id',
@@ -13,8 +15,13 @@ class DamageClaimResponse extends Model
         'message',
     ];
 
-    public function damage_claims()
+    public function damageClaim()
     {
-        return $this->hasMany(DamageClaim::class);
+        return $this->belongsTo(DamageClaim::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

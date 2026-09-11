@@ -16,20 +16,30 @@ class Dispute extends Model
         'resolved_by',
     ];
 
-    public function casts()
+    protected function casts(): array
     {
         return [
-            'resolved_at',
+            'resolved_at' => 'datetime',
         ];
     }
 
-    public function damage_claims()
+    public function rental()
     {
-        return $this->hasMany(DamageClaim::class);
+        return $this->belongsTo(Rental::class);
     }
 
-    public function users()
+    public function damageClaim()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(DamageClaim::class);
+    }
+
+    public function openedBy()
+    {
+        return $this->belongsTo(User::class, 'opened_by');
+    }
+
+    public function resolvedBy()
+    {
+        return $this->belongsTo(User::class, 'resolved_by');
     }
 }

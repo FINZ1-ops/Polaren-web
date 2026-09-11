@@ -15,8 +15,18 @@ class Review extends Model
         'comment',
     ];
 
-    public function rentals()
+    public function rental()
     {
-        return $this->hasMany(Rental::class);
+        return $this->belongsTo(Rental::class);
+    }
+
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class, 'reviewer_id');
+    }
+
+    public function reviewee()
+    {
+        return $this->belongsTo(User::class, 'reviewee_id');
     }
 }

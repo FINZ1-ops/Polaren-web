@@ -7,26 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 class RentalConditionReport extends Model
 {
     protected $fillable = [
-        'renta;_id',
+        'rental_id',
         'type',
         'created_by',
         'notes',
     ];
 
-    public function casts():array
+    protected function casts(): array
     {
         return [
-            'confirmed_at',
+            'confirmed_at' => 'datetime',
         ];
     }
 
-    public function rental_condition_items()
+    public function rental()
     {
-        return $this->hasOne(RentalConditionItem::class);
+        return $this->belongsTo(Rental::class);
     }
 
-    public function rental_condition_images()
+    public function createdBy()
     {
-        return $this->hasOne(RentalConditionImage::class);
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(RentalConditionItem::class, 'condition_report_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(RentalConditionImage::class, 'condition_report_id');
     }
 }

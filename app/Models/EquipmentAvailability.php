@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EquipmentAvailability extends Model
 {
+    protected $table = 'equipment_availability';
+
     protected $fillable = [
         'equipment_id',
         'start_date',
@@ -13,8 +15,9 @@ class EquipmentAvailability extends Model
         'reason',
         'notes',
     ];
+
     public function equipment()
     {
-        return $this->hasMany(Equipment::class);
+        return $this->belongsTo(Equipment::class);
     }
 }

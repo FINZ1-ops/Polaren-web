@@ -6,18 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Favorite extends Model
 {
+    const UPDATED_AT = null;
+
     protected $fillable = [
         'user_id',
         'equipment_id',
     ];
 
-    public function equipment()
+    public function user()
     {
-        return $this->hasMany(Equipment::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function users()
+    public function equipment()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Equipment::class);
     }
 }

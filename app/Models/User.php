@@ -2,27 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    
     protected $fillable = [
         'name',
         'email',
@@ -36,6 +25,11 @@ class User extends Authenticatable
         'is_active',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected function casts(): array
     {
         return [
@@ -46,12 +40,43 @@ class User extends Authenticatable
         ];
     }
 
-    protected $hidden = [
-        'password', 
-        'remember_token',
-    ];
+    public function equipment()
+    {
+        return $this->hasMany(Equipment::class, 'owner_id');
+    }
+
+    public function rentalsAsOwner()
+    {
+        return $this->hasMany(Rental::class, 'owner_id');
+    }
+
+    public function rentalsAsRenter()
+    {
+        return $this->hasMany(Rental::class, 'renter_id');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function messagesSent()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(AppNotification::class);
+    }
+
+    public function reviewsGiven()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewee_id');
+    }
 }
-
-
-
-

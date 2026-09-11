@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Override;
 
 class SecurityDeposit extends Model
 {
@@ -13,16 +12,16 @@ class SecurityDeposit extends Model
         'status',
     ];
 
-    #[Override]
-    public function casts():array
+    protected function casts(): array
     {
         return [
-            'secured_at',
-            'released_at',
+            'secured_at' => 'datetime',
+            'released_at' => 'datetime',
         ];
     }
-    public function rentals()
+
+    public function rental()
     {
-        return $this->hasMany(Rental::class);
+        return $this->belongsTo(Rental::class);
     }
 }
