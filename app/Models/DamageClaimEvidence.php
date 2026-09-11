@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class DamageClaimEvidence extends Model
 {
-    //
+    protected $fillable = [
+        'damage_claim_id',
+        'type',
+        'path',
+        'description',
+    ];
 
     public function damage_claims()
     {
-        return $this->belongsTo(DamageClaim::class);  
+        return $this->hasMany(DamageClaim::class);  
     }
 }

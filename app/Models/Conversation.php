@@ -6,14 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
-    //
+    protected $fillable = [
+        'rental_id',
+    ];
     public function messages()
     {
-        return $this->belongsTo(Message::class);
+        return $this->hasOne(Message::class);
     }
 
     public function rentals()
     {
-        return $this->belongsTo(Rental::class);
+        return $this->hasMany(Rental::class);
     }
-}
+}   
